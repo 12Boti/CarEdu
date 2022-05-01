@@ -262,7 +262,7 @@ material/5 = null
 material/6 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Car"]
-transform = Transform( 0.40214, 0, -0.915578, 0, 1, 0, 0.915578, 0, 0.40214, -2.09818e-08, 0, -0.24 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.24 )
 shape = SubResource( 6 )
 
 [node name="front_right" type="MeshInstance" parent="Car"]
