@@ -10,7 +10,8 @@ var first := true
 var next: Ground
 
 func _ready():
-	assert(connect("create_next", self, "_on_create_next") == OK)
+	var err := connect("create_next", self, "_on_create_next")
+	assert(err == OK)
 	next = duplicate(DUPLICATE_SCRIPTS) as Ground
 	next.first = false
 	next.translate(Vector3(0, 0, -128))
