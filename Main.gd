@@ -3,7 +3,6 @@ extends Spatial
 
 onready var car := get_node("Car") as KinematicBody
 onready var camera := get_node("Camera") as Camera
-onready var wheel_particles: Array = [get_node("Car/LeftParticles"), get_node("Car/RightParticles")]
 onready var ground_mesh := (get_node("Ground/MeshInstance") as MeshInstance).mesh as PlaneMesh
 onready var road_shader := ground_mesh.surface_get_material(0) as ShaderMaterial
 
@@ -47,12 +46,6 @@ func _physics_process(delta: float):
 	# also update camera in `_physics_process` so it doesn't flicker
 	# normal `translate` would move it in the direction it's facing, so use `global_translate`
 	camera.global_translate(Vector3.FORWARD * speed * delta)
-	
-	# the particles should start with a velocity relative to the car
-	for p_ in wheel_particles:
-		var p := p_ as Particles
-		var mat := p.process_material as ParticlesMaterial
-		mat.initial_velocity = current_velocity.length() - wheel_particle_speed
 
 func _input(event: InputEvent):
 	if Engine.editor_hint:

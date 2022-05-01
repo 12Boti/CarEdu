@@ -1,8 +1,7 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://assets/3d_car_customizable/assets/Body.material" type="Material" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
-[ext_resource path="res://WheelParticles.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/3d_car_customizable/assets/Fenders.material" type="Material" id=4]
 [ext_resource path="res://assets/3d_car_customizable/assets/Windows.material" type="Material" id=5]
 [ext_resource path="res://assets/3d_car_customizable/assets/AroundTailLights.material" type="Material" id=6]
@@ -291,9 +290,3 @@ mesh = SubResource( 3 )
 skeleton = NodePath("")
 material/0 = null
 material/1 = null
-
-[node name="LeftParticles" parent="Car" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, -0.4, -2 )
-
-[node name="RightParticles" parent="Car" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, -0.4, -2 )
