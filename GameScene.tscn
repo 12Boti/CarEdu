@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/3d_car_customizable/assets/Body.material" type="Material" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
@@ -11,22 +11,23 @@
 [ext_resource path="res://assets/3d_car_customizable/assets/TailLights.material" type="Material" id=9]
 [ext_resource path="res://assets/3d_car_customizable/assets/Headlights.material" type="Material" id=10]
 [ext_resource path="res://RoadShader.gdshader" type="Shader" id=11]
+[ext_resource path="res://Ground.gd" type="Script" id=12]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 50, 1, 50 )
+extents = Vector3( 75, 1, 64 )
 
 [sub_resource type="ShaderMaterial" id=14]
 shader = ExtResource( 11 )
 shader_param/lane_width = 0.0666667
 shader_param/lane_count = 2
 shader_param/stripe_width = 0.00333333
-shader_param/stripe_dist = 0.08
+shader_param/stripe_dist = 0.0625
 shader_param/stripe_len = 0.05
 shader_param/line_width = 0.00333333
 
 [sub_resource type="PlaneMesh" id=2]
 material = SubResource( 14 )
-size = Vector2( 150, 100 )
+size = Vector2( 150, 128 )
 
 [sub_resource type="ArrayMesh" id=7]
 resource_name = "car_model_Cube"
@@ -230,6 +231,8 @@ surfaces/1 = {
 script = ExtResource( 2 )
 
 [node name="Ground" type="StaticBody" parent="."]
+script = ExtResource( 12 )
+camera_path = NodePath("../Camera")
 
 [node name="CollisionShape" type="CollisionShape" parent="Ground"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
