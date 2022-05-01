@@ -17,7 +17,7 @@ var min_lane := 0
 var max_lane := 1
 
 var x_accel := 0.0
-var max_x_accel := 30.0
+var max_x_accel := 20.0
 
 func _ready():
 	# start in a lane
@@ -34,7 +34,7 @@ func _physics_process(delta: float):
 	if Engine.editor_hint:
 		return # don't run in the editor
 	x_accel *= pow(0.005, delta) # damping
-	x_accel += (target_lane_pos().x - car.translation.x) * 20 * delta # spring motion
+	x_accel += (target_lane_pos().x - car.translation.x) * 10 * delta # spring motion
 	x_accel = clamp(x_accel, -max_x_accel, max_x_accel)
 	# move_and_slide handles `delta`
 	var current_velocity := car.move_and_slide(Vector3.FORWARD * speed + Vector3.RIGHT * x_accel)
