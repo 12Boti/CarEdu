@@ -230,6 +230,8 @@ surfaces/1 = {
 script = ExtResource( 2 )
 
 [node name="Ground" type="StaticBody" parent="."]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource( 12 )
 camera_path = NodePath("../Camera")
 
@@ -290,3 +292,7 @@ mesh = SubResource( 3 )
 skeleton = NodePath("")
 material/0 = null
 material/1 = null
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.666246, 0.00860301, -0.745682, 0.745732, -0.00768604, 0.666202, 0, -0.999933, -0.0115363, 0, 0, 0 )
+shadow_enabled = true
