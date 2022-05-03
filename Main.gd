@@ -17,8 +17,8 @@ var target_lane := 0
 var min_lane := 0
 var max_lane := 1
 
-var x_accel := 0.0
-var max_x_accel := 20.0
+var x_velocity := 0.0
+var max_x_velocity := 20.0
 
 func _ready():
 	# start in a lane
@@ -35,15 +35,21 @@ func _ready():
 func _physics_process(delta: float):
 	if Engine.editor_hint:
 		return # don't run in the editor
-	x_accel *= pow(0.005, delta) # damping
-	x_accel += (target_lane_pos().x - car.translation.x) * 10 * delta # spring motion
-	x_accel = clamp(x_accel, -max_x_accel, max_x_accel)
+	x_velocity *= pow(0.005, delta) # damping
+	var x_acceleration := (target_lane_pos().x - car.translation.x) * 10
+	x_velocity += x_acceleration * delta # spring motion
+	x_velocity = clamp(x_velocity, -max_x_velocity, max_x_velocity)
 	# move_and_slide handles `delta`
-	var current_velocity := car.move_and_slide(Vector3.FORWARD * speed + Vector3.RIGHT * x_accel)
+	var current_velocity := car.move_and_slide(Vector3.FORWARD * speed + Vector3.RIGHT * x_velocity)
 	
 	# look where we're going
 	car.look_at(car.translation + current_velocity * 10, Vector3.UP)
 	car.rotation.y += deg2rad(180) # car model is backwards
+	
+	# rotate wheels according to x acceleration
+	var rot := -atan(x_acceleration * 0.005)
+	(get_node("Car/front_left") as Spatial).rotation.y = rot
+	(get_node("Car/front_right") as Spatial).rotation.y = rot
 	
 	# also update camera in `_physics_process` so it doesn't flicker
 	# normal `translate` would move it in the direction it's facing, so use `global_translate`
