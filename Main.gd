@@ -3,6 +3,7 @@ extends Spatial
 
 onready var car := get_node("Car") as KinematicBody
 onready var camera := get_node("Camera") as Camera
+onready var ground := get_node("Ground") as Spatial
 onready var ground_mesh := (get_node("Ground/MeshInstance") as MeshInstance).mesh as PlaneMesh
 onready var road_shader := ground_mesh.surface_get_material(0) as ShaderMaterial
 
@@ -24,11 +25,12 @@ func _ready():
 	car.translation	= target_lane_pos()
 	road_shader.set_shader_param("lane_count", max_lane - min_lane + 1)
 	# the shader uses UV coordinates, so params need to be adjusted based on the mesh size
-	road_shader.set_shader_param("lane_width", lane_width/ground_mesh.size.x)
-	road_shader.set_shader_param("stripe_width", 0.5/ground_mesh.size.x)
-	road_shader.set_shader_param("stripe_dist", 8.0/ground_mesh.size.y)
-	road_shader.set_shader_param("stripe_lent", 5.0/ground_mesh.size.y)
-	road_shader.set_shader_param("line_width", 0.5/ground_mesh.size.x)
+	var ground_size := Vector2(ground.scale.x, ground.scale.z)
+	road_shader.set_shader_param("lane_width", lane_width/ground_size.x)
+	road_shader.set_shader_param("stripe_width", 0.5/ground_size.x)
+	road_shader.set_shader_param("stripe_dist", 8.0/ground_size.y)
+	road_shader.set_shader_param("stripe_lent", 5.0/ground_size.y)
+	road_shader.set_shader_param("line_width", 0.5/ground_size.x)
 
 func _physics_process(delta: float):
 	if Engine.editor_hint:

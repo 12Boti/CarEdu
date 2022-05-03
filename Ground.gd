@@ -14,7 +14,7 @@ func _ready():
 	assert(err == OK)
 	next = duplicate(DUPLICATE_SCRIPTS) as Ground
 	next.first = false
-	next.translate(Vector3(0, 0, -128))
+	next.translate(Vector3.FORWARD)
 	if first:
 		_on_create_next()
 

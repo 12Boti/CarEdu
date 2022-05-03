@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://assets/3d_car_customizable/assets/Body.material" type="Material" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
@@ -13,20 +13,20 @@
 [ext_resource path="res://Ground.gd" type="Script" id=12]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 75, 1, 64 )
+extents = Vector3( 0.5, 1, 0.5 )
 
 [sub_resource type="ShaderMaterial" id=14]
 shader = ExtResource( 11 )
-shader_param/lane_width = 0.0666667
+shader_param/lane_width = 0.05
 shader_param/lane_count = 2
-shader_param/stripe_width = 0.00333333
+shader_param/stripe_width = 0.0025
 shader_param/stripe_dist = 0.0625
 shader_param/stripe_len = 0.05
-shader_param/line_width = 0.00333333
+shader_param/line_width = 0.0025
 
 [sub_resource type="PlaneMesh" id=2]
 material = SubResource( 14 )
-size = Vector2( 150, 128 )
+size = Vector2( 1, 1 )
 
 [sub_resource type="ArrayMesh" id=7]
 resource_name = "car_model_Cube"
@@ -236,10 +236,21 @@ bounce = 0.1
 
 [sub_resource type="CubeMesh" id=16]
 
+[sub_resource type="ViewportTexture" id=19]
+viewport_path = NodePath("Boxes/Sprite3D/Viewport")
+
+[sub_resource type="DynamicFontData" id=20]
+font_path = "res://assets/FiraGO-Regular.otf"
+
+[sub_resource type="DynamicFont" id=21]
+size = 200
+font_data = SubResource( 20 )
+
 [node name="Spatial" type="Spatial"]
 script = ExtResource( 2 )
 
 [node name="Ground" type="StaticBody" parent="."]
+transform = Transform( 200, 0, 0, 0, 1, 0, 0, 0, 128, 0, 0, 0 )
 collision_layer = 2
 collision_mask = 0
 script = ExtResource( 12 )
@@ -254,14 +265,14 @@ mesh = SubResource( 2 )
 material/0 = null
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 30.313, 46.3948 )
+transform = Transform( 1, 0, 0, 0, 0.75471, 0.656059, 0, -0.656059, 0.75471, 0, 30.313, 48.801 )
 fov = 50.0
 
 [node name="Car" type="KinematicBody" parent="."]
 transform = Transform( -2, 0, -3.01992e-07, 0, 2, 0, 3.01992e-07, 0, -2, -5, 1.52439, 30 )
 
 [node name="Body" type="MeshInstance" parent="Car"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.15314e-05, -0.0463659, -0.244585 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.25064e-05, -0.0463659, -0.244585 )
 mesh = SubResource( 7 )
 material/0 = null
 material/1 = null
@@ -311,51 +322,74 @@ shape = SubResource( 18 )
 transform = Transform( 0.625664, -0.335574, -0.704226, 0.745732, -0.00768603, 0.666202, -0.228973, -0.941982, 0.24544, 0, 0, 0 )
 shadow_enabled = true
 
-[node name="Box" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.78131, 1.00833, -61.358 )
+[node name="Boxes" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.48628, 0, -61.5869 )
+
+[node name="Box" type="RigidBody" parent="Boxes"]
+transform = Transform( 0.996405, 0, 0.0847213, 0, 1, 0, -0.0847213, 0, 0.996405, -1.29503, 1.00833, 0.228878 )
 collision_mask = 3
 mass = 0.01
 physics_material_override = SubResource( 17 )
 sleeping = true
 linear_damp = 0.5
 
-[node name="CollisionShape" type="CollisionShape" parent="Box"]
+[node name="CollisionShape" type="CollisionShape" parent="Boxes/Box"]
 shape = SubResource( 15 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Box"]
-transform = Transform( 0.995918, 0, 0.0902676, 0, 1, 0, -0.0902676, 0, 0.995918, 0, 0, 0 )
+[node name="MeshInstance" type="MeshInstance" parent="Boxes/Box"]
 mesh = SubResource( 16 )
 material/0 = null
 
-[node name="Box2" type="RigidBody" parent="."]
-transform = Transform( 0.974605, 0, -0.223931, 0, 1, 0, 0.223931, 0, 0.974605, -3.36951, 1.01417, -61.4761 )
+[node name="Box2" type="RigidBody" parent="Boxes"]
+transform = Transform( 0.974605, 0, -0.223931, 0, 1, 0, 0.223931, 0, 0.974605, 1.11677, 1.01417, 0.110779 )
 collision_mask = 3
 mass = 0.01
 physics_material_override = SubResource( 17 )
 sleeping = true
 linear_damp = 0.5
 
-[node name="CollisionShape" type="CollisionShape" parent="Box2"]
+[node name="CollisionShape" type="CollisionShape" parent="Boxes/Box2"]
 shape = SubResource( 15 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Box2"]
+[node name="MeshInstance" type="MeshInstance" parent="Boxes/Box2"]
 mesh = SubResource( 16 )
-skeleton = NodePath("../../Box2")
 material/0 = null
 
-[node name="Box3" type="RigidBody" parent="."]
-transform = Transform( 0.997592, 0, 0.0693561, 0, 1, 0, -0.0693561, 0, 0.997592, -4.62128, 3.06401, -61.4354 )
+[node name="Box3" type="RigidBody" parent="Boxes"]
+transform = Transform( 0.997592, 0, 0.0693561, 0, 1, 0, -0.0693561, 0, 0.997592, -0.135002, 3.06401, 0.151482 )
 collision_mask = 3
 mass = 0.01
 physics_material_override = SubResource( 17 )
 sleeping = true
 linear_damp = 0.5
 
-[node name="CollisionShape" type="CollisionShape" parent="Box3"]
+[node name="CollisionShape" type="CollisionShape" parent="Boxes/Box3"]
 shape = SubResource( 15 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Box3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0246572, 0 )
+[node name="MeshInstance" type="MeshInstance" parent="Boxes/Box3"]
+transform = Transform( 0.99949, 0, -0.0319341, 0, 1, 0, 0.0319341, 0, 0.99949, 0, -0.0246572, 0 )
 mesh = SubResource( 16 )
-skeleton = NodePath("../../Box3")
 material/0 = null
+
+[node name="Sprite3D" type="Sprite3D" parent="Boxes"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -20.47, 12.1401, 3.29088 )
+billboard = 1
+texture = SubResource( 19 )
+region_rect = Rect2( 0, 0, 200, 200 )
+
+[node name="Viewport" type="Viewport" parent="Boxes/Sprite3D"]
+size = Vector2( 1500, 1500 )
+transparent_bg = true
+usage = 0
+render_target_v_flip = true
+
+[node name="Label" type="Label" parent="Boxes/Sprite3D/Viewport"]
+anchor_right = 0.9
+anchor_bottom = 1.0
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 21 )
+text = "The quick brown fox"
+align = 2
+valign = 2
+autowrap = true
