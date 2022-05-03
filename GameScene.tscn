@@ -116,7 +116,7 @@ surfaces/6 = {
 }
 
 [sub_resource type="BoxShape" id=6]
-extents = Vector3( 0.9, 0.64, 1.16666 )
+extents = Vector3( 0.9, 0.64, 1.6 )
 
 [sub_resource type="ArrayMesh" id=8]
 resource_name = "car_model_Cube001"
@@ -227,7 +227,7 @@ surfaces/1 = {
 }
 
 [sub_resource type="ConvexPolygonShape" id=18]
-points = PoolVector3Array( -1, 0, 0, 1, 0, 0, 1, 0, 1, -1, 0, 1, -1, 1, 0, 1, 1, 0, 0, 0, 1.5 )
+points = PoolVector3Array( -1, 0, 0, 1, 0, 0, 1, 0, 1, -1, 0, 1, -1, 1.25, 0, 1, 1.25, 0, 0, 0, 1.5 )
 
 [sub_resource type="PhysicsMaterial" id=17]
 bounce = 0.1
@@ -283,7 +283,7 @@ material/5 = null
 material/6 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Car"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.24 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76837e-07, 0, -0.651312 )
 shape = SubResource( 6 )
 
 [node name="front_right" type="MeshInstance" parent="Car"]
@@ -315,7 +315,7 @@ material/0 = null
 material/1 = null
 
 [node name="CollisionShape2" type="CollisionShape" parent="Car"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19209e-06, -0.580842, 0.948125 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.66893e-06, -0.631194, 0.948125 )
 shape = SubResource( 18 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
