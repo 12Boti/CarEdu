@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://assets/3d_car_customizable/assets/Body.material" type="Material" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
@@ -229,6 +229,12 @@ surfaces/1 = {
 [sub_resource type="ConvexPolygonShape" id=18]
 points = PoolVector3Array( -1, 0, 0, 1, 0, 0, 1, 0, 1, -1, 0, 1, -1, 1.25, 0, 1, 1.25, 0, 0, 0, 1.5 )
 
+[sub_resource type="SphereShape" id=22]
+radius = 0.376977
+
+[sub_resource type="BoxShape" id=23]
+extents = Vector3( 1, 0.165138, 1.48301 )
+
 [sub_resource type="PhysicsMaterial" id=17]
 bounce = 0.1
 
@@ -318,6 +324,23 @@ material/1 = null
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.66893e-06, -0.631194, 0.948125 )
 shape = SubResource( 18 )
 
+[node name="FrontArea" type="Area" parent="Car"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.66893e-06, -0.137382, 1.96613 )
+space_override = 3
+gravity_vec = Vector3( 0, 1, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Car/FrontArea"]
+shape = SubResource( 22 )
+
+[node name="TopArea" type="Area" parent="Car"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76837e-07, 0.759776, -0.570573 )
+space_override = 1
+gravity_vec = Vector3( 0, 0, 1 )
+gravity = 20.0
+
+[node name="CollisionShape" type="CollisionShape" parent="Car/TopArea"]
+shape = SubResource( 23 )
+
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.625664, -0.335574, -0.704226, 0.745732, -0.00768603, 0.666202, -0.228973, -0.941982, 0.24544, 0, 0, 0 )
 shadow_enabled = true
@@ -382,6 +405,7 @@ size = Vector2( 1500, 1500 )
 transparent_bg = true
 usage = 0
 render_target_v_flip = true
+gui_disable_input = true
 
 [node name="Label" type="Label" parent="Boxes/Sprite3D/Viewport"]
 anchor_right = 0.9
