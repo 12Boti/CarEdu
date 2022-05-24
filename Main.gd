@@ -1,11 +1,19 @@
 tool
+class_name Game
 extends Spatial
 
 onready var car := get_node("Car") as KinematicBody
 onready var camera := get_node("Camera") as Camera
+onready var camera_pos := get_node("CameraPos") as Spatial
+onready var menu_camera_pos := get_node("MenuCameraPos") as Spatial
 onready var ground := get_node("Ground") as Spatial
 onready var ground_mesh := (get_node("Ground/MeshInstance") as MeshInstance).mesh as PlaneMesh
 onready var road_shader := ground_mesh.surface_get_material(0) as ShaderMaterial
+
+const left_boxes_scene := preload("res://LeftBoxes.tscn")
+
+enum State {MENU, STARTING, RUNNING}
+var state: int = State.MENU
 
 # how fast the camera and the car move forward
 var speed := 20.0
@@ -19,6 +27,12 @@ var max_lane := 1
 
 var x_velocity := 0.0
 var max_x_velocity := 20.0
+
+var time_until_start := 2.0
+var current_time_until_start := time_until_start
+
+var time_until_menu_boxes := 2.0
+var current_time_until_menu_boxes := time_until_menu_boxes
 
 func _ready():
 	# start in a lane
@@ -35,6 +49,16 @@ func _ready():
 func _physics_process(delta: float):
 	if Engine.editor_hint:
 		return # don't run in the editor
+	match state:
+		State.MENU:
+			current_time_until_start -= delta
+			if current_time_until_start <= 0:
+				current_time_until_start = time_until_menu_boxes
+				add_child(make_boxes(4.5, Side.LEFT, ""))
+		State.STARTING:
+			current_time_until_start -= delta
+			if current_time_until_start <= 0:
+				state = State.RUNNING
 	x_velocity *= pow(0.005, delta) # damping
 	var x_acceleration := (target_lane_pos().x - car.translation.x) * 10
 	x_velocity += x_acceleration * delta # spring motion
@@ -53,11 +77,23 @@ func _physics_process(delta: float):
 	
 	# also update camera in `_physics_process` so it doesn't flicker
 	# normal `translate` would move it in the direction it's facing, so use `global_translate`
-	camera.global_translate(Vector3.FORWARD * speed * delta)
+	camera_pos.global_translate(Vector3.FORWARD * speed * delta)
+	menu_camera_pos.global_translate(Vector3.FORWARD * speed * delta)
+	match state:
+		State.MENU:
+			camera.transform = menu_camera_pos.transform
+		State.STARTING:
+			var ratio := ease(current_time_until_start/time_until_start, -2.0)
+			camera.transform = camera_pos.transform.interpolate_with(menu_camera_pos.transform, ratio)
+		State.RUNNING:
+			camera.transform = camera_pos.transform
+		
 
 func _input(event: InputEvent):
 	if Engine.editor_hint:
 		return # don't run in the editor
+	if state != State.RUNNING:
+		return
 	if event.is_action("change_lane_left") and target_lane > min_lane:
 		target_lane -= 1
 	if event.is_action("change_lane_right") and target_lane < max_lane:
@@ -67,4 +103,18 @@ func _input(event: InputEvent):
 func target_lane_pos() -> Vector3:
 	var offset := -lane_width/2 if max_lane - min_lane % 2 == 1 else 0.0
 	return Vector3(target_lane * lane_width + offset, car.translation.y, car.translation.z)
-	
+
+enum Side {LEFT, RIGHT}
+# time is in seconds compared to now
+func make_boxes(time: float, side: int, text: String) -> Boxes:
+	var boxes: Boxes
+	match side:
+		Side.LEFT:
+			boxes = left_boxes_scene.instance() as Boxes
+		Side.RIGHT:
+			# TODO
+			#boxes = preload("res://RightBoxes.tscn").instance()
+			pass
+	boxes.set_text(text)
+	boxes.translation.z = car.translation.z - time * speed
+	return boxes

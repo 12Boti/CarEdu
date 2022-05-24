@@ -10,19 +10,35 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Spatial",
+"class": "Boxes",
+"language": "GDScript",
+"path": "res://Boxes.gd"
+}, {
+"base": "Spatial",
+"class": "Game",
+"language": "GDScript",
+"path": "res://Main.gd"
+}, {
+"base": "Spatial",
 "class": "Ground",
 "language": "GDScript",
 "path": "res://Ground.gd"
 } ]
 _global_script_class_icons={
+"Boxes": "",
+"Game": "",
 "Ground": ""
 }
 
 [application]
 
 config/name="Car Edu"
-run/main_scene="res://GameScene.tscn"
+run/main_scene="res://MenuScene.tscn"
 config/icon="res://icon.png"
+
+[gui]
+
+theme/custom="res://Default.theme"
 
 [input]
 
