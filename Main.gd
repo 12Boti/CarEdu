@@ -54,7 +54,7 @@ func _physics_process(delta: float):
 			current_time_until_menu_boxes -= delta
 			if current_time_until_menu_boxes <= 0:
 				current_time_until_menu_boxes = time_until_menu_boxes
-				add_child(make_boxes(4.5, Side.LEFT, ""))
+				call_deferred("add_child", make_boxes(4.5, Side.LEFT, ""))
 		State.STARTING:
 			current_time_until_start -= delta
 			if current_time_until_start <= 0:
