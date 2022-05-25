@@ -94,9 +94,9 @@ func _input(event: InputEvent):
 		return # don't run in the editor
 	if state != State.RUNNING:
 		return
-	if event.is_action("change_lane_left") and target_lane > min_lane:
+	if event.is_action_pressed("change_lane_left") and target_lane > min_lane:
 		target_lane -= 1
-	if event.is_action("change_lane_right") and target_lane < max_lane:
+	if event.is_action_pressed("change_lane_right") and target_lane < max_lane:
 		target_lane += 1
 
 # where we're trying to go
