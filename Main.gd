@@ -50,7 +50,7 @@ func _physics_process(delta: float):
 	if Engine.editor_hint:
 		return # don't run in the editor
 	match state:
-		State.MENU, State.RUNNING:
+		State.MENU:
 			current_time_until_menu_boxes -= delta
 			if current_time_until_menu_boxes <= 0:
 				current_time_until_menu_boxes = time_until_menu_boxes
@@ -115,6 +115,14 @@ func make_boxes(time: float, side: int, text: String) -> Boxes:
 			# TODO
 			#boxes = preload("res://RightBoxes.tscn").instance()
 			pass
+	boxes.car = car
+	boxes.camera = camera
 	boxes.set_text(text)
 	boxes.translation.z = car.translation.z - time * speed
 	return boxes
+
+func bad_answer():
+	print("bad")
+
+func good_answer():
+	print("good")

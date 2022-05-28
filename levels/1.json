@@ -1,9 +1,14 @@
 {
     "type": "collect",
+    "text": "Choose the verbs in past tense!",
     "right": [
-
+        "walked",
+        "drove",
+        "ate"
     ],
     "wrong": [
-        
+        "go",
+        "drink",
+        "talk"
     ]
 }

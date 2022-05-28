@@ -11,6 +11,27 @@ onready var level_select_button := get_node("StartMenu/VBoxContainer/LevelSelect
 var level_data = null
 
 func _on_StartButton_pressed():
+	match level_data.type:
+		"collect":
+			var boxes := []
+			for b in level_data.right:
+				boxes.append({"text": b, "right": true})
+			for b in level_data.wrong:
+				boxes.append({"text": b, "right": false})
+			boxes.shuffle()
+			var t := 10.0
+			for b in boxes:
+				var node = game.make_boxes(t, Game.Side.LEFT, b.text)
+				node.connect("hit", game, "good_answer" if b.right else "bad_answer")
+				node.connect("miss", game, "bad_answer" if b.right else "good_answer")
+				game.call_deferred("add_child", node)
+				t += 5.0
+		var t:
+			if typeof(t) == TYPE_STRING:
+				show_error("Unknown level type '" + t + "'")
+			else:
+				show_error("Invalid level type")
+			return
 	start_menu.visible = false
 	game.state = Game.State.STARTING
 
@@ -20,18 +41,19 @@ func _on_LevelSelectButton_pressed():
 func _on_FileDialog_file_selected(path: String):
 	var file := File.new()
 	if file.open(path, File.READ) != OK:
-		load_error_dialog_label.text = "Unable to open file"
-		load_error_dialog.popup_centered()
+		show_error("Unable to open file")
 		return
 	var text_content := file.get_as_text()
 	file.close()
 	var json_result := JSON.parse(text_content)
 	if json_result.error != OK:
-		load_error_dialog_label.text = (
-			"Line " + str(json_result.error_line + 1) + ":\n" + json_result.error_string
-		)
-		load_error_dialog.popup_centered()
+		show_error("Line " + str(json_result.error_line + 1) + ":\n" + json_result.error_string)
 		return
 	level_data = json_result.result
 	level_select_button.text = path
 	start_button.disabled = false
+
+func show_error(msg: String):
+	load_error_dialog_label.text = msg
+	load_error_dialog.popup_centered()
+	

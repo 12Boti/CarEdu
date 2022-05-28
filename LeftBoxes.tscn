@@ -20,18 +20,20 @@ font_data = SubResource( 20 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, 0 )
 script = ExtResource( 1 )
 
-[node name="Box" type="RigidBody" parent="."]
+[node name="Box1" type="RigidBody" parent="."]
 transform = Transform( 0.996405, 0, 0.0847213, 0, 1, 0, -0.0847213, 0, 0.996405, -1.29503, 1.00833, 0.228878 )
 collision_mask = 3
 mass = 0.01
 physics_material_override = SubResource( 17 )
+contacts_reported = 10
+contact_monitor = true
 sleeping = true
 linear_damp = 0.5
 
-[node name="CollisionShape" type="CollisionShape" parent="Box"]
+[node name="CollisionShape" type="CollisionShape" parent="Box1"]
 shape = SubResource( 15 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Box"]
+[node name="MeshInstance" type="MeshInstance" parent="Box1"]
 mesh = SubResource( 16 )
 material/0 = null
 
@@ -40,6 +42,8 @@ transform = Transform( 0.974605, 0, -0.223931, 0, 1, 0, 0.223931, 0, 0.974605, 1
 collision_mask = 3
 mass = 0.01
 physics_material_override = SubResource( 17 )
+contacts_reported = 10
+contact_monitor = true
 sleeping = true
 linear_damp = 0.5
 
@@ -55,6 +59,8 @@ transform = Transform( 0.997592, 0, 0.0693561, 0, 1, 0, -0.0693561, 0, 0.997592,
 collision_mask = 3
 mass = 0.01
 physics_material_override = SubResource( 17 )
+contacts_reported = 10
+contact_monitor = true
 sleeping = true
 linear_damp = 0.5
 
@@ -67,7 +73,7 @@ mesh = SubResource( 16 )
 material/0 = null
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -20.47, 12.1401, 3.29088 )
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -20.47, 12.1401, -5.36946 )
 billboard = 1
 region_rect = Rect2( 0, 0, 200, 200 )
 
