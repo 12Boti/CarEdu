@@ -18,8 +18,6 @@ var state: int = State.MENU
 
 # how fast the camera and the car move forward
 var speed := 20.0
-# how fast the wheel particles move relative to the car
-var wheel_particle_speed := 3.0
 
 var lane_width := 10.0
 var target_lane := 0
