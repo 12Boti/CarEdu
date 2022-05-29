@@ -21,7 +21,7 @@ func _on_StartButton_pressed():
 			boxes.shuffle()
 			var t := 10.0
 			for b in boxes:
-				var node = game.make_boxes(t, Game.Side.LEFT, b.text)
+				var node = game.make_boxes(t, Game.Side.LEFT if randf() < 0.5 else Game.Side.RIGHT, b.text)
 				node.connect("hit", game, "good_answer" if b.right else "bad_answer")
 				node.connect("miss", game, "bad_answer" if b.right else "good_answer")
 				game.call_deferred("add_child", node)

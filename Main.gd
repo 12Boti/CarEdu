@@ -11,6 +11,7 @@ onready var ground_mesh := (get_node("Ground/MeshInstance") as MeshInstance).mes
 onready var road_shader := ground_mesh.surface_get_material(0) as ShaderMaterial
 
 const left_boxes_scene := preload("res://LeftBoxes.tscn")
+const right_boxes_scene := preload("res://RightBoxes.tscn")
 
 enum State {MENU, STARTING, RUNNING}
 var state: int = State.MENU
@@ -112,9 +113,7 @@ func make_boxes(time: float, side: int, text: String) -> Boxes:
 		Side.LEFT:
 			boxes = left_boxes_scene.instance() as Boxes
 		Side.RIGHT:
-			# TODO
-			#boxes = preload("res://RightBoxes.tscn").instance()
-			pass
+			boxes = right_boxes_scene.instance() as Boxes
 	boxes.car = car
 	boxes.camera = camera
 	boxes.set_text(text)
