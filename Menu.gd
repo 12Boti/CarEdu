@@ -19,6 +19,7 @@ var questions_left: int
 var score := 0
 
 func _on_StartButton_pressed():
+	randomize()
 	match level_data.type:
 		"collect":
 			var boxes := []

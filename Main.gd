@@ -32,6 +32,7 @@ var current_time_until_start := time_until_start
 
 var time_until_menu_boxes := 2.0
 var current_time_until_menu_boxes := time_until_menu_boxes
+var menu_boxes_spawn_distance := 4.5
 
 func _ready():
 	# start in a lane
@@ -44,6 +45,11 @@ func _ready():
 	road_shader.set_shader_param("stripe_dist", 8.0/ground_size.y)
 	road_shader.set_shader_param("stripe_len", 5.0/ground_size.y)
 	road_shader.set_shader_param("line_width", 0.5/ground_size.x)
+	# spawn initial boxes
+	var t := menu_boxes_spawn_distance
+	while t > 0:
+		call_deferred("add_child", make_boxes(t, Side.LEFT, ""))
+		t -= time_until_menu_boxes
 
 func _physics_process(delta: float):
 	if Engine.editor_hint:
@@ -53,7 +59,7 @@ func _physics_process(delta: float):
 			current_time_until_menu_boxes -= delta
 			if current_time_until_menu_boxes <= 0:
 				current_time_until_menu_boxes = time_until_menu_boxes
-				call_deferred("add_child", make_boxes(4.5, Side.LEFT, ""))
+				call_deferred("add_child", make_boxes(menu_boxes_spawn_distance, Side.LEFT, ""))
 		State.STARTING:
 			current_time_until_start -= delta
 			if current_time_until_start <= 0:
