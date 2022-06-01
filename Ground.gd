@@ -19,7 +19,7 @@ func _ready():
 		_on_create_next()
 
 func _process(_delta):
-	if translation.z > camera.translation.z + 64:
+	if translation.z > camera.translation.z + scale.z:
 		next.emit_signal("create_next")
 		queue_free()
 

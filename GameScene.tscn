@@ -17,12 +17,12 @@ extents = Vector3( 0.5, 1, 0.5 )
 
 [sub_resource type="ShaderMaterial" id=14]
 shader = ExtResource( 11 )
-shader_param/lane_width = 0.05
+shader_param/lane_width = 0.01
 shader_param/lane_count = 2
-shader_param/stripe_width = 0.0025
-shader_param/stripe_dist = 0.0625
-shader_param/stripe_len = 0.05
-shader_param/line_width = 0.0025
+shader_param/stripe_width = 0.0005
+shader_param/stripe_dist = 0.03125
+shader_param/stripe_len = 0.0195312
+shader_param/line_width = 0.0005
 
 [sub_resource type="PlaneMesh" id=2]
 material = SubResource( 14 )
@@ -239,7 +239,7 @@ extents = Vector3( 1, 0.165138, 1.48301 )
 script = ExtResource( 2 )
 
 [node name="Ground" type="StaticBody" parent="."]
-transform = Transform( 200, 0, 0, 0, 1, 0, 0, 0, 128, 0, 0, 0 )
+transform = Transform( 1000, 0, 0, 0, 1, 0, 0, 0, 256, 0, 0, 0 )
 collision_layer = 2
 collision_mask = 0
 script = ExtResource( 12 )

@@ -42,7 +42,7 @@ func _ready():
 	road_shader.set_shader_param("lane_width", lane_width/ground_size.x)
 	road_shader.set_shader_param("stripe_width", 0.5/ground_size.x)
 	road_shader.set_shader_param("stripe_dist", 8.0/ground_size.y)
-	road_shader.set_shader_param("stripe_lent", 5.0/ground_size.y)
+	road_shader.set_shader_param("stripe_len", 5.0/ground_size.y)
 	road_shader.set_shader_param("line_width", 0.5/ground_size.x)
 
 func _physics_process(delta: float):
@@ -117,9 +117,3 @@ func make_boxes(time: float, side: int, text: String) -> Boxes:
 	boxes.set_text(text)
 	boxes.translation.z = car.translation.z - time * speed
 	return boxes
-
-func bad_answer():
-	print("bad")
-
-func good_answer():
-	print("good")
