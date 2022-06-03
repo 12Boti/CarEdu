@@ -281,14 +281,14 @@ skeleton = NodePath("")
 material/0 = null
 material/1 = null
 
-[node name="read_right" type="MeshInstance" parent="Car"]
+[node name="rear_right" type="MeshInstance" parent="Car"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.82, -0.52, -1.54401 )
 mesh = SubResource( 5 )
 skeleton = NodePath("")
 material/0 = null
 material/1 = null
 
-[node name="read_left" type="MeshInstance" parent="Car"]
+[node name="rear_left" type="MeshInstance" parent="Car"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.82, -0.52, -1.54401 )
 mesh = SubResource( 4 )
 skeleton = NodePath("")

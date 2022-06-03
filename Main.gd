@@ -45,6 +45,8 @@ func _ready():
 	road_shader.set_shader_param("stripe_dist", 8.0/ground_size.y)
 	road_shader.set_shader_param("stripe_len", 5.0/ground_size.y)
 	road_shader.set_shader_param("line_width", 0.5/ground_size.x)
+	if Engine.editor_hint:
+		return # don't run in the editor
 	# spawn initial boxes
 	var t := menu_boxes_spawn_distance
 	while t > 0:
@@ -79,6 +81,12 @@ func _physics_process(delta: float):
 	var rot := -atan(x_acceleration * 0.005)
 	(get_node("Car/front_left") as Spatial).rotation.y = rot
 	(get_node("Car/front_right") as Spatial).rotation.y = rot
+	
+	# rotate wheels forward
+	(get_node("Car/front_left") as Spatial).rotation.x += speed * 0.005
+	(get_node("Car/front_right") as Spatial).rotation.x += speed * 0.005
+	(get_node("Car/rear_left") as Spatial).rotation.x += speed * 0.005
+	(get_node("Car/rear_right") as Spatial).rotation.x += speed * 0.005
 	
 	# also update camera in `_physics_process` so it doesn't flicker
 	# normal `translate` would move it in the direction it's facing, so use `global_translate`
