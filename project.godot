@@ -34,7 +34,6 @@ _global_script_class_icons={
 
 config/name="Car Edu"
 run/main_scene="res://MenuScene.tscn"
-config/icon="res://icon.png"
 
 [display]
 
@@ -69,9 +68,10 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 quality/directional_shadow/size=16384
 quality/shadows/filter_mode=2
-quality/filters/msaa=4
+quality/filters/msaa=3
 environment/default_environment="res://default_env.tres"

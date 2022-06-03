@@ -79,14 +79,14 @@ func _physics_process(delta: float):
 	
 	# rotate wheels according to x acceleration
 	var rot := -atan(x_acceleration * 0.005)
-	(get_node("Car/front_left") as Spatial).rotation.y = rot
-	(get_node("Car/front_right") as Spatial).rotation.y = rot
-	
+	(get_node("Car/Model/front_left") as Spatial).rotation.y = rot
+	(get_node("Car/Model/front_right") as Spatial).rotation.y = rot
+
 	# rotate wheels forward
-	(get_node("Car/front_left") as Spatial).rotation.x += speed * 0.005
-	(get_node("Car/front_right") as Spatial).rotation.x += speed * 0.005
-	(get_node("Car/rear_left") as Spatial).rotation.x += speed * 0.005
-	(get_node("Car/rear_right") as Spatial).rotation.x += speed * 0.005
+	(get_node("Car/Model/front_left") as Spatial).rotation.x += speed * 0.005
+	(get_node("Car/Model/front_right") as Spatial).rotation.x += speed * 0.005
+	(get_node("Car/Model/rear_left") as Spatial).rotation.x += speed * 0.005
+	(get_node("Car/Model/rear_right") as Spatial).rotation.x += speed * 0.005
 	
 	# also update camera in `_physics_process` so it doesn't flicker
 	# normal `translate` would move it in the direction it's facing, so use `global_translate`
