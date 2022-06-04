@@ -14,3 +14,6 @@ A level file is just json data. You can see an example [here](levels/1.json). Th
 - `text`: a string, the text that appears at the start of the game, explaining the task
 - `right`: a list of strings, these are what the player should collect
 - `wrong`: a list of strings, these are what the player should avoid
+
+## Controls
+You can use either AD or the arrow keys to switch lanes.
