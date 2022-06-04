@@ -6,6 +6,8 @@ If you are on linux and have the [nix package manager](https://nixos.org/) with 
 ```console
 $ nix run github:12Boti/CarEdu
 ```
+On windows, download the latest [release](https://github.com/12Boti/CarEdu/releases).
+
 To start the game, you'll need a level file.
 
 ## Level files
