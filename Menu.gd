@@ -2,7 +2,6 @@ extends Spatial
 
 onready var game := get_node("Game") as Game
 onready var start_menu := get_node("StartMenu") as Control
-onready var file_dialog := get_node("StartMenu/FileDialog") as FileDialog
 onready var load_error_dialog := get_node("StartMenu/LoadErrorDialog") as AcceptDialog
 onready var load_error_dialog_label := get_node("StartMenu/LoadErrorDialog/Message") as Label
 onready var start_button := get_node("StartMenu/VBoxContainer/StartButton") as Button
@@ -17,6 +16,17 @@ onready var score_label := get_node("HUD/Score") as Label
 var level_data = null
 var questions_left: int
 var score := 0
+var file_dialog: FileDialog
+
+func _ready():
+	# create the FileDialog in code, since the editor saves the current path of the editor otherwise,
+	# see https://github.com/godotengine/godot/issues/29674
+	file_dialog = FileDialog.new()
+	file_dialog.access = FileDialog.ACCESS_FILESYSTEM
+	file_dialog.mode = FileDialog.MODE_OPEN_FILE
+	file_dialog.popup_exclusive = true
+	file_dialog.connect("file_selected", self, "_on_FileDialog_file_selected")
+	start_menu.add_child(file_dialog)
 
 func _on_StartButton_pressed():
 	randomize()

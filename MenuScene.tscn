@@ -103,16 +103,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 4 )
 
-[node name="FileDialog" type="FileDialog" parent="StartMenu"]
-margin_right = 315.0
-margin_bottom = 130.0
-popup_exclusive = true
-window_title = "Open a File"
-mode = 0
-access = 2
-current_dir = "/home/boti/Programming/CarEdu"
-current_path = "/home/boti/Programming/CarEdu/"
-
 [node name="VBoxContainer" type="VBoxContainer" parent="StartMenu"]
 anchor_left = 0.8
 anchor_top = 0.4
@@ -210,6 +200,5 @@ anims/-1 = SubResource( 8 )
 
 [node name="Tween" type="Tween" parent="."]
 
-[connection signal="file_selected" from="StartMenu/FileDialog" to="." method="_on_FileDialog_file_selected"]
 [connection signal="pressed" from="StartMenu/VBoxContainer/LevelSelectButton" to="." method="_on_LevelSelectButton_pressed"]
 [connection signal="pressed" from="StartMenu/VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
