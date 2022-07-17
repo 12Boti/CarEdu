@@ -34,10 +34,12 @@ _global_script_class_icons={
 
 config/name="Car Edu"
 run/main_scene="res://MenuScene.tscn"
+config/icon="res://icon.png"
 
 [debug]
 
 settings/fps/force_fps=60
+settings/stdout/verbose_stdout=true
 
 [display]
 
